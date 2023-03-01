@@ -1,5 +1,5 @@
 import axios from "axios";
-const makeRequest = async (method, url, isLiked) => {
+const makeRequest = async (method, url) => {
   const data = await axios({
     method: method,
     url: url,
@@ -7,10 +7,10 @@ const makeRequest = async (method, url, isLiked) => {
       "Content-Type": "application/json",
       Accept: "application/json",
       Authorization: "Bearer QWlzaHdhcnlhIE4=",
-    },
-    data:{
-      like: isLiked,
     }
+    // data:{
+    //   like: isLiked,
+    // }
   });
   return data;
 };
