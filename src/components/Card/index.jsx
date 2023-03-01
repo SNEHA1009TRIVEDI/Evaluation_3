@@ -9,10 +9,11 @@ import {
   faCircleXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import makeRequest from "../../utils/makeRequest";
-import { EVENTS_ROUTE } from "../../constants/routes";
 import EventDetails from "../EventDetails";
 const Card = (props) => {
   const [filter, setFilter] = React.useState(false);
+  const [registerEvent, setRegisterEvent] = React.useState(props.isRegistered);
+
   const { event } = props;
   console.log(event);
   const [isBookmarked, setIsBookmark] = React.useState(event.isBookmarked);
@@ -56,6 +57,37 @@ const Card = (props) => {
         });
     }
   };
+
+  const registerHandler = () => {
+    if (registerEvent) {
+      makeRequest(
+        "PATCH",
+        `http://localhost:8000/api/events/${event.id}`,
+        false,
+        false
+      )
+        .then((res) => {
+          setRegisterEvent(!registerEvent);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      makeRequest(
+        "PATCH",
+        `http://localhost:8000/api/events/${event.id}`,
+        true,
+        true
+      )
+        .then((res) => {
+          setRegisterEvent(!registerEvent);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
   let circleCheck;
   if (event.isRegistered) {
     circleCheck = faCircleCheck;
@@ -92,7 +124,11 @@ const Card = (props) => {
           </p>
         </div>
         <div className="card_footer">
-          <FontAwesomeIcon icon={circleCheck} className="cicle_check" />
+          <FontAwesomeIcon
+            icon={circleCheck}
+            className={registerEvent ? "checked" : "unchecked"}
+            onClick={registerHandler}
+          />
           <span className="register">Registered</span>
 
           <FontAwesomeIcon
