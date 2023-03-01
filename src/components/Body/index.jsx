@@ -22,15 +22,14 @@ const Body = () => {
 
   return (
     <>
-    <Filter />
-    <div className="body_container">
-      
-      {eventsData ? (
-        eventsData.map((event, idx) => <Card key={idx} event={event} />)
-      ) : (
-        <div data-testid="loading-screen">Loading!!!</div>
-      )}
-    </div>
+      <Filter />
+      <div className="body_container">
+        {eventsData ? (
+          eventsData.map((event, idx) => <Card key={idx} event={event} />)
+        ) : (
+          <div data-testid="loading-screen">Loading!!!</div>
+        )}
+      </div>
     </>
   );
 };

@@ -1,5 +1,5 @@
 import axios from "axios";
-const makeRequest = async (method, url) => {
+const makeRequest = async (method, url, register, bookmark) => {
   const data = await axios({
     method: method,
     url: url,
@@ -7,10 +7,11 @@ const makeRequest = async (method, url) => {
       "Content-Type": "application/json",
       Accept: "application/json",
       Authorization: "Bearer QWlzaHdhcnlhIE4=",
-    }
-    // data:{
-    //   like: isLiked,
-    // }
+    },
+    data: {
+      isRegistered: register,
+      isBookmarked: bookmark,
+    },
   });
   return data;
 };

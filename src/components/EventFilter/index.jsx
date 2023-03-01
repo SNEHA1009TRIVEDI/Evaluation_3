@@ -1,7 +1,6 @@
 import React from "react";
-import "./Card.css";
+import "./EventFilter.css";
 import { getFormattedDateFromUtcDate } from "../../utils/commons/index";
-import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleCheck,
@@ -9,23 +8,12 @@ import {
   faCircleXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import makeRequest from "../../utils/makeRequest";
-import { EVENTS_ROUTE } from "../../constants/routes";
-import EventDetails from "../EventDetails";
-const Card = (props) => {
-  const [filter, setFilter] = React.useState(false);
+const EventFilter = (props) => {
   const { event } = props;
-  console.log(event);
+  //   console.log(event);
   const [isBookmarked, setIsBookmark] = React.useState(event.isBookmarked);
 
   // console.log(event);
-  const navigate = useNavigate();
-  const eventHandler = () => {
-    setFilter(!filter);
-    console.log(filter);
-  };
-  if (filter) {
-    return <EventDetails id={event.id} data={event} />;
-  }
 
   const bookmarkHandler = () => {
     if (isBookmarked) {
@@ -67,14 +55,7 @@ const Card = (props) => {
   return (
     <div className="card_container">
       <div className="card_image">
-        <img
-          src={event.imgUrl}
-          alt="event"
-          className="image"
-          onClick={() => {
-            eventHandler();
-          }}
-        />
+        <img src={event.imgUrl} alt="event" className="image" />
       </div>
       <div className="card_content">
         <div className="card_title">
@@ -105,4 +86,4 @@ const Card = (props) => {
     </div>
   );
 };
-export default Card;
+export default EventFilter;
